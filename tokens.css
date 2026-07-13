@@ -1,0 +1,51 @@
+/* Hallmark tokens - Marc Joshua Catalo portfolio */
+:root {
+  color-scheme: dark;
+  --font-body: Urbanist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --color-bg: #0d0f0e;
+  --color-bg-2: #111412;
+  --color-surface: rgba(20, 23, 21, 0.92);
+  --color-surface-variant: rgba(28, 32, 29, 0.9);
+  --color-surface-high: rgba(36, 40, 36, 0.92);
+  --color-panel: rgba(18, 21, 19, 0.78);
+  --color-recess: rgba(11, 13, 12, 0.64);
+  --color-nav: rgba(14, 16, 15, 0.52);
+  --color-text: #f2f1ea;
+  --color-muted: #a9aba2;
+  --color-primary: #f6b84a;
+  --color-focus: #ffd47a;
+  --color-primary-soft: rgba(246, 184, 74, 0.14);
+  --color-primary-line: rgba(246, 184, 74, 0.38);
+  --color-line: rgba(242, 241, 234, 0.09);
+  --color-grid: rgba(242, 241, 234, 0.035);
+  --color-white-glint: rgba(255, 255, 255, 0.08);
+  --color-amber-haze: rgba(246, 184, 74, 0.11);
+  --color-green-haze: rgba(171, 210, 126, 0.07);
+  --color-blue-haze: rgba(112, 154, 185, 0.07);
+  --color-logo-bg: #f8f7f2;
+  --color-logo-border: rgba(255, 255, 255, 0.18);
+
+  --layout-max: 1280px;
+
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+  --radius-pill: 999px;
+
+  --dur-fast: 180ms;
+  --dur-med: 260ms;
+  --dur-slow: 700ms;
+  --dur-slower: 820ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --shadow-soft: -3px -3px 10px rgba(255, 255, 255, 0.03), 8px 10px 28px rgba(0, 0, 0, 0.34);
+  --shadow-raised: -6px -6px 18px rgba(255, 255, 255, 0.035), 14px 16px 36px rgba(0, 0, 0, 0.44);
+  --shadow-lift: -7px -7px 22px rgba(255, 255, 255, 0.045), 18px 22px 46px rgba(0, 0, 0, 0.52);
+  --shadow-inset: inset -5px -5px 12px rgba(255, 255, 255, 0.035), inset 7px 7px 18px rgba(0, 0, 0, 0.45);
+  --shadow-inset-strong: inset -6px -6px 16px rgba(255, 255, 255, 0.04), inset 9px 9px 24px rgba(0, 0, 0, 0.56);
+  --shadow-pressed: inset -4px -4px 10px rgba(255, 255, 255, 0.04), inset 5px 5px 14px rgba(0, 0, 0, 0.58);
+  --shadow-amber: -4px -4px 16px rgba(246, 184, 74, 0.05), 12px 16px 34px rgba(0, 0, 0, 0.48);
+  --shadow-logo: 0 20px 52px rgba(0, 0, 0, 0.42), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
