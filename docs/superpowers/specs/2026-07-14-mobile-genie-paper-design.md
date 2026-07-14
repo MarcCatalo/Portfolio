@@ -24,9 +24,14 @@ Replace the mobile folder expansion with a stationary folder stack and a paper-l
 
 - Use one mobile details sheet positioned behind the stationary folder stack.
 - Anchor the bottom edge of the sheet to the selected folder's opening while keeping a shared top boundary for the expanded state.
-- Animate the sheet with a CSS `clip-path` polygon, vertical scale, slight horizontal compression, and upward translation.
+- Warp the complete sheet, including its text and controls, so the content visibly stretches and compresses with the paper.
+- Replace the straight two-state transition with dedicated opening and closing keyframes inspired by the macOS Genie effect.
+- Use matching multi-point `clip-path` polygons at each keyframe to create a narrow neck at the folder mouth and progressively curved side contours as the page rises.
+- Coordinate each contour with vertical scale, horizontal compression, and upward translation so clipping and content deformation remain synchronized.
 - In the closed state, narrow and compress the sheet at the selected folder mouth so it appears stored inside the folder.
-- In the open state, fan the sheet upward and outward into a full-width rectangular details surface.
+- During the reveal, widen the top of the paper before the lower neck, then relax the remaining curve into a full-width rectangular details surface.
+- Add a restrained settling frame near the end of the opening rather than a spring or bounce.
+- Reverse the contour sequence when closing so the sheet is visibly drawn back into the same folder instead of fading or collapsing uniformly.
 - Keep the sheet and its content in the same animated element so the folder details never appear before the paper reaches them.
 - Use the existing folder easing and `773ms` duration for both reveal and retraction.
 - Avoid delayed child animations; typography and content move together with the paper surface.
