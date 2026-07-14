@@ -440,6 +440,7 @@ export function PortfolioFolderIndex() {
       <nav
         ref={railRef}
         className="folder-rail"
+        data-active-index={activeFolderIndex}
         aria-label="Portfolio folders"
         onMouseLeave={handleFolderSystemLeave}
       >

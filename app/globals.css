@@ -1579,6 +1579,287 @@ a:focus-visible {
   }
 }
 
+@keyframes mobile-folder-stack-arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .portfolio-editorial {
+    --mobile-stack-gutter: 10px;
+    --mobile-folder-bottom: 82px;
+    --mobile-stack-step: clamp(54px, 6.6svh, 62px);
+    --mobile-tab-height: 38px;
+    --mobile-folder-depth: 92px;
+    --mobile-stack-height: calc(
+      (var(--mobile-stack-step) * 3) + var(--mobile-folder-depth)
+    );
+    --mobile-open-top: 82px;
+    --mobile-open-rise: calc(
+      100svh - var(--mobile-folder-bottom) - var(--mobile-stack-height) -
+        var(--mobile-open-top)
+    );
+  }
+
+  .folder-rail {
+    position: absolute;
+    right: var(--mobile-stack-gutter);
+    bottom: var(--mobile-folder-bottom);
+    left: var(--mobile-stack-gutter);
+    z-index: 12;
+    display: block;
+    width: auto;
+    height: var(--mobile-stack-height);
+    margin: 0 auto;
+    overflow: visible;
+    transform: none;
+    pointer-events: none;
+  }
+
+  .folder-slot,
+  .folder-slot-0,
+  .folder-slot-1,
+  .folder-slot-2,
+  .folder-slot-3 {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    min-width: 0;
+    margin: 0;
+    animation-name: mobile-folder-stack-arrive;
+    animation-duration: 520ms;
+    pointer-events: none;
+    will-change: transform;
+    transition: transform var(--motion-folder) var(--motion-ease);
+  }
+
+  .folder-slot-0 {
+    top: 0;
+    z-index: 1;
+  }
+
+  .folder-slot-1 {
+    top: var(--mobile-stack-step);
+    z-index: 2;
+  }
+
+  .folder-slot-2 {
+    top: calc(var(--mobile-stack-step) * 2);
+    z-index: 3;
+  }
+
+  .folder-slot-3 {
+    top: calc(var(--mobile-stack-step) * 3);
+    z-index: 4;
+  }
+
+  .folder-slot-extended {
+    transform: translate3d(0, calc(-1 * var(--mobile-open-rise)), 0);
+  }
+
+  .folder-spine {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    color: var(--folder-ink);
+    contain: none;
+    cursor: pointer;
+    pointer-events: auto;
+    transform: none;
+    transition: none;
+  }
+
+  .folder-slot-extended .folder-spine {
+    top: 0;
+    bottom: auto;
+    height: var(--mobile-stack-step);
+  }
+
+  .folder-spine::before,
+  .folder-spine::after {
+    display: block;
+    right: auto;
+    bottom: auto;
+    border: 0;
+    background: var(--folder-color);
+  }
+
+  .folder-spine::before {
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: var(--mobile-tab-height);
+    border-radius: 11px 11px 0 0;
+    box-shadow: inset 1px 0 rgba(17, 17, 17, 0.2),
+      inset -1px 0 rgba(17, 17, 17, 0.12),
+      inset 0 1px rgba(17, 17, 17, 0.16);
+  }
+
+  .folder-spine::after {
+    top: calc(var(--mobile-tab-height) - 1px);
+    left: 0;
+    width: 100%;
+    height: calc(100% - var(--mobile-tab-height) + 1px);
+    border-radius: 0 11px 0 0;
+    box-shadow: inset 1px 0 rgba(17, 17, 17, 0.2),
+      inset -1px 0 rgba(17, 17, 17, 0.14),
+      inset 0 1px rgba(17, 17, 17, 0.14);
+  }
+
+  .folder-slot:hover .folder-spine:not(.folder-spine-current),
+  .folder-spine-extended,
+  .folder-spine-current {
+    transform: none;
+  }
+
+  .folder-label {
+    position: absolute;
+    top: 11px;
+    bottom: auto;
+    left: 24px;
+    z-index: 2;
+    display: block;
+    height: auto;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    writing-mode: initial;
+    transform: none;
+  }
+
+  .folder-number {
+    position: absolute;
+    top: calc(var(--mobile-tab-height) + 12px);
+    right: 14px;
+    left: auto;
+    z-index: 2;
+    display: block;
+    width: auto;
+    font-size: 8px;
+    line-height: 1;
+    text-align: left;
+    writing-mode: vertical-rl;
+  }
+
+  .folder-sheet,
+  .folder-sheet-work,
+  .folder-sheet-projects,
+  .folder-sheet-skills,
+  .folder-sheet-contact {
+    right: var(--mobile-stack-gutter);
+    left: var(--mobile-stack-gutter);
+    z-index: 10;
+    width: auto;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--ink);
+    border-top: 0;
+    border-bottom: 0;
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.995);
+    transform: translate3d(
+      0,
+      calc(100% + var(--mobile-stack-step)),
+      0
+    );
+    transition:
+      opacity var(--motion-fast) ease,
+      transform var(--motion-folder) var(--motion-ease),
+      visibility 0s linear var(--motion-folder);
+  }
+
+  .folder-sheet-work {
+    top: calc(var(--mobile-open-top) + var(--mobile-tab-height) - 1px);
+    bottom: calc(
+      var(--mobile-folder-bottom) + var(--mobile-stack-height) -
+        var(--mobile-stack-step) - var(--mobile-tab-height)
+    );
+  }
+
+  .folder-sheet-projects {
+    top: calc(
+      var(--mobile-open-top) + var(--mobile-stack-step) +
+        var(--mobile-tab-height) - 1px
+    );
+    bottom: calc(
+      var(--mobile-folder-bottom) + var(--mobile-stack-height) -
+        (var(--mobile-stack-step) * 2) - var(--mobile-tab-height)
+    );
+  }
+
+  .folder-sheet-skills {
+    top: calc(
+      var(--mobile-open-top) + (var(--mobile-stack-step) * 2) +
+        var(--mobile-tab-height) - 1px
+    );
+    bottom: calc(
+      var(--mobile-folder-bottom) + var(--mobile-stack-height) -
+        (var(--mobile-stack-step) * 3) - var(--mobile-tab-height)
+    );
+  }
+
+  .folder-sheet-contact {
+    top: calc(
+      var(--mobile-open-top) + (var(--mobile-stack-step) * 3) +
+        var(--mobile-tab-height) - 1px
+    );
+    bottom: var(--mobile-folder-bottom);
+  }
+
+  .folder-sheet-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+    transition-delay: 0s;
+  }
+
+  .folder-sheet .sheet-content {
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 22px 18px 34px;
+  }
+}
+
+@media (max-width: 520px) {
+  .portfolio-editorial {
+    --mobile-stack-gutter: 8px;
+    --mobile-stack-step: clamp(50px, 6.4svh, 56px);
+    --mobile-tab-height: 36px;
+    --mobile-folder-depth: 84px;
+  }
+
+  .folder-spine::before {
+    width: 52%;
+  }
+
+  .folder-label {
+    top: 10px;
+    left: 20px;
+    font-size: 13px;
+  }
+
+  .folder-number {
+    right: 12px;
+    font-size: 7px;
+  }
+
+  .folder-sheet .sheet-content {
+    padding: 20px 14px 32px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .typing-cursor,
   .hero-intro > p,
