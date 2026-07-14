@@ -9,7 +9,8 @@ Replace the mobile folder expansion with a stationary folder stack and a paper-l
 - Apply the revised interaction at viewport widths of `900px` and below.
 - Keep the desktop cumulative hover interaction unchanged.
 - Keep all existing Work, Projects, Skills, and Contact content unchanged.
-- Preserve the existing monochrome folder order and the current `773ms` folder motion duration.
+- Preserve the existing monochrome folder order and the desktop `773ms` folder motion duration.
+- Use a mobile-specific `620ms` duration for the Genie paper and synchronize the interaction lock timers to the same value.
 
 ## Mobile Folder Stack
 
@@ -33,7 +34,9 @@ Replace the mobile folder expansion with a stationary folder stack and a paper-l
 - Add a restrained settling frame near the end of the opening rather than a spring or bounce.
 - Reverse the contour sequence when closing so the sheet is visibly drawn back into the same folder instead of fading or collapsing uniformly.
 - Keep the sheet and its content in the same animated element so the folder details never appear before the paper reaches them.
-- Use the existing folder easing and `773ms` duration for both reveal and retraction.
+- Use a mobile-specific `620ms` duration for both reveal and retraction.
+- Rebalance the keyframes so the paper clears the folder earlier and spends less time in its final settling frames.
+- Use a mobile easing curve with a continuous acceleration change and a shorter deceleration tail so the motion feels responsive without snapping.
 - Avoid delayed child animations; typography and content move together with the paper surface.
 
 ## Interaction State
@@ -46,7 +49,11 @@ Replace the mobile folder expansion with a stationary folder stack and a paper-l
 
 ## Visual Layering
 
-- Render the paper below the folder rail so the stack visually masks the paper's source edge.
+- On mobile, avoid treating the complete folder rail as one stacking context. Give each folder slot its own ascending layer and place the active paper immediately above its source folder.
+- The Work paper appears above Work but below Projects, Skills, and Contact.
+- The Projects paper appears above Work and Projects but below Skills and Contact.
+- The Skills paper appears above Work, Projects, and Skills but below Contact.
+- The Contact paper appears above the complete folder stack.
 - Keep the paper connected to the selected folder mouth without a visible gap.
 - Maintain enough internal bottom padding that content is never obscured by the visible stack.
 - Keep straight, cohesive sheet edges; do not introduce rounded container corners where the paper meets the folders.
@@ -59,7 +66,7 @@ Replace the mobile folder expansion with a stationary folder stack and a paper-l
 
 ## Verification
 
-- Add focused regression coverage for a stationary mobile folder rail and the genie sheet state classes.
+- Add focused regression coverage for a stationary mobile folder rail, synchronized `620ms` motion timing, and the interleaved sheet layer assigned to every folder.
 - Preserve existing open, close, switch, desktop layering, and typography tests.
 - Run the full Vitest suite, ESLint, and the production build.
 - Visually verify the closed stack, each folder reveal, retraction, cross-folder switching, internal scrolling, seam removal, and upright numbering at representative mobile widths.
