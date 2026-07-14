@@ -2,10 +2,25 @@ import { describe, expect, it } from "vitest";
 
 import {
   getClosedFolderState,
+  getFolderAfterPress,
   getFolderTransition,
   isFolderExtended,
   shouldCloseFolderSystem,
 } from "./folder-state";
+
+describe("getFolderAfterPress", () => {
+  it("opens a folder when the stack is closed", () => {
+    expect(getFolderAfterPress(null, "work")).toBe("work");
+  });
+
+  it("closes the active folder when it is pressed again", () => {
+    expect(getFolderAfterPress("projects", "projects")).toBeNull();
+  });
+
+  it("switches directly to a different folder", () => {
+    expect(getFolderAfterPress("work", "skills")).toBe("skills");
+  });
+});
 
 describe("getFolderTransition", () => {
   it("animates when opening deeper into the folder stack", () => {

@@ -3,6 +3,13 @@ export type FolderTransition = {
   animateSheet: boolean;
 };
 
+export function getFolderAfterPress<T extends string>(
+  activeFolder: T | null,
+  pressedFolder: T,
+): T | null {
+  return activeFolder === pressedFolder ? null : pressedFolder;
+}
+
 export function getFolderTransition(
   previousIndex: number,
   nextIndex: number,

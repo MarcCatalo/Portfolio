@@ -28,6 +28,7 @@ import {
 } from "./content";
 import {
   getClosedFolderState,
+  getFolderAfterPress,
   getFolderTransition,
   isFolderExtended,
   shouldCloseFolderSystem,
@@ -226,11 +227,14 @@ const fullHeaderName = "MARC JOSHUA\nCATALO";
 
 export function PortfolioFolderIndex() {
   const [activeFolder, setActiveFolder] = useState<FolderId | null>(null);
+  const [displayedFolder, setDisplayedFolder] = useState<FolderId | null>(null);
   const [animateSheet, setAnimateSheet] = useState(false);
   const [typedName, setTypedName] = useState("");
   const activeIndexRef = useRef(-1);
   const sheetRef = useRef<HTMLDivElement>(null);
   const railRef = useRef<HTMLElement>(null);
+  const clearSheetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const switchFolderTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -250,7 +254,29 @@ export function PortfolioFolderIndex() {
     return () => window.clearInterval(typingTimer);
   }, []);
 
+  useEffect(
+    () => () => {
+      if (clearSheetTimerRef.current) {
+        clearTimeout(clearSheetTimerRef.current);
+      }
+      if (switchFolderTimerRef.current) {
+        clearTimeout(switchFolderTimerRef.current);
+      }
+    },
+    [],
+  );
+
+  const usesMobileFolderLayout = () =>
+    window.matchMedia("(max-width: 900px)").matches;
+
   const activateFolder = (nextFolder: FolderId) => {
+    if (clearSheetTimerRef.current) {
+      clearTimeout(clearSheetTimerRef.current);
+    }
+    if (switchFolderTimerRef.current) {
+      clearTimeout(switchFolderTimerRef.current);
+    }
+
     const nextIndex = folders.findIndex((folder) => folder.id === nextFolder);
     if (nextIndex !== activeIndexRef.current) {
       const transition = getFolderTransition(activeIndexRef.current, nextIndex);
@@ -258,17 +284,59 @@ export function PortfolioFolderIndex() {
       activeIndexRef.current = transition.activeIndex;
     }
 
+    setDisplayedFolder(nextFolder);
     setActiveFolder(nextFolder);
   };
 
   const closeFolders = () => {
+    if (clearSheetTimerRef.current) {
+      clearTimeout(clearSheetTimerRef.current);
+    }
+    if (switchFolderTimerRef.current) {
+      clearTimeout(switchFolderTimerRef.current);
+    }
+
     const closedState = getClosedFolderState();
     activeIndexRef.current = closedState.activeIndex;
     setActiveFolder(null);
     setAnimateSheet(closedState.animateSheet);
+    clearSheetTimerRef.current = setTimeout(() => {
+      setDisplayedFolder(null);
+    }, 700);
+  };
+
+  const handleFolderPress = (pressedFolder: FolderId) => {
+    if (!usesMobileFolderLayout()) {
+      activateFolder(pressedFolder);
+      return;
+    }
+
+    const nextFolder = getFolderAfterPress(activeFolder, pressedFolder);
+    if (!nextFolder) {
+      closeFolders();
+      return;
+    }
+
+    if (activeFolder && activeFolder !== nextFolder) {
+      if (clearSheetTimerRef.current) {
+        clearTimeout(clearSheetTimerRef.current);
+      }
+      setActiveFolder(null);
+      setAnimateSheet(false);
+      switchFolderTimerRef.current = setTimeout(() => {
+        activateFolder(nextFolder);
+      }, 240);
+      return;
+    }
+
+    activateFolder(nextFolder);
   };
 
   const handleFolderSystemLeave = (event: ReactMouseEvent<HTMLElement>) => {
+    if (usesMobileFolderLayout()) {
+      return;
+    }
+
     const relatedTarget = event.relatedTarget;
     const relatedTargetIsNode = relatedTarget instanceof Node;
 
@@ -289,6 +357,11 @@ export function PortfolioFolderIndex() {
   const activeFolderIndex = activeFolder
     ? folders.findIndex((folder) => folder.id === activeFolder)
     : -1;
+  const folderSheetClassName = `folder-sheet${
+    displayedFolder ? ` folder-sheet-${displayedFolder}` : ""
+  }${activeFolder ? " folder-sheet-open" : ""}${
+    animateSheet ? " folder-sheet-animate" : ""
+  }`;
 
   return (
     <main className="portfolio-editorial">
@@ -348,16 +421,19 @@ export function PortfolioFolderIndex() {
 
       <div
         ref={sheetRef}
-        key={activeFolder ?? "closed"}
-        className={`folder-sheet${
-          activeFolder ? ` folder-sheet-${activeFolder}` : ""
-        }${activeFolder ? " folder-sheet-open" : ""}${
-          animateSheet ? " folder-sheet-animate" : ""
-        }`}
+        key={displayedFolder ?? "closed"}
+        className={`${folderSheetClassName} desktop-folder-sheet`}
         aria-live="polite"
         onMouseLeave={handleFolderSystemLeave}
       >
-        {activeFolder ? sheetByFolder[activeFolder] : null}
+        {displayedFolder ? sheetByFolder[displayedFolder] : null}
+      </div>
+
+      <div
+        className={`${folderSheetClassName} mobile-folder-sheet`}
+        aria-live="polite"
+      >
+        {displayedFolder ? sheetByFolder[displayedFolder] : null}
       </div>
 
       <nav
@@ -383,9 +459,13 @@ export function PortfolioFolderIndex() {
                 className={`folder-spine${
                   isExtended ? " folder-spine-extended" : ""
                 }${isCurrent ? " folder-spine-current" : ""}`}
-                onMouseEnter={() => activateFolder(folder.id)}
-                onFocus={() => activateFolder(folder.id)}
-                onClick={() => activateFolder(folder.id)}
+                onMouseEnter={() => {
+                  if (!usesMobileFolderLayout()) activateFolder(folder.id);
+                }}
+                onFocus={() => {
+                  if (!usesMobileFolderLayout()) activateFolder(folder.id);
+                }}
+                onClick={() => handleFolderPress(folder.id)}
                 aria-expanded={isOpen}
               >
                 <span className="folder-number">{folder.number}</span>
