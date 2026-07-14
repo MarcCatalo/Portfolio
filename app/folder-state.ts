@@ -4,6 +4,11 @@ export type FolderTransition = {
 };
 
 export const FOLDER_MOTION_MS = 773;
+export const MOBILE_FOLDER_MOTION_MS = 620;
+
+export function getFolderMotionDuration(isMobile: boolean): number {
+  return isMobile ? MOBILE_FOLDER_MOTION_MS : FOLDER_MOTION_MS;
+}
 
 export function getFolderAfterPress<T extends string>(
   activeFolder: T | null,

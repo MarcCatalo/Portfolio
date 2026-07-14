@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 describe("mobile layered folder layout", () => {
-  it("anchors cumulative folder layers and opens them upward", () => {
+  it("anchors stationary folder layers beneath the opening paper", () => {
     const css = readFileSync(new URL("./globals.css", import.meta.url), "utf8");
     const component = readFileSync(
       new URL("./PortfolioFolderIndex.tsx", import.meta.url),
@@ -11,13 +11,11 @@ describe("mobile layered folder layout", () => {
     );
 
     expect(css).toContain("--mobile-stack-step:");
-    expect(css).toContain("--mobile-open-rise:");
+    expect(css).toContain("--mobile-sheet-top:");
     expect(css).toContain(
-      "transform: translate3d(0, calc(-1 * var(--mobile-open-rise)), 0);",
+      ".folder-slot-extended {\n    transform: none;",
     );
-    expect(css).toContain(
-      "transition: transform var(--motion-folder) var(--motion-ease);",
-    );
+    expect(css).toContain("clip-path: var(--mobile-genie-open);");
     expect(component).toContain("data-active-index={activeFolderIndex}");
   });
 });

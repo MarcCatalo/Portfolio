@@ -27,9 +27,9 @@ import {
   work,
 } from "./content";
 import {
-  FOLDER_MOTION_MS,
   getClosedFolderState,
   getFolderAfterPress,
+  getFolderMotionDuration,
   getFolderTransition,
   isFolderExtended,
   shouldCloseFolderSystem,
@@ -236,6 +236,7 @@ export function PortfolioFolderIndex() {
   const railRef = useRef<HTMLElement>(null);
   const clearSheetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const switchFolderTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mobileTransitionLockedRef = useRef(false);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -287,6 +288,7 @@ export function PortfolioFolderIndex() {
 
     setDisplayedFolder(nextFolder);
     setActiveFolder(nextFolder);
+    mobileTransitionLockedRef.current = false;
   };
 
   const closeFolders = () => {
@@ -298,12 +300,16 @@ export function PortfolioFolderIndex() {
     }
 
     const closedState = getClosedFolderState();
+    const folderMotionDuration = getFolderMotionDuration(
+      usesMobileFolderLayout(),
+    );
     activeIndexRef.current = closedState.activeIndex;
     setActiveFolder(null);
     setAnimateSheet(closedState.animateSheet);
     clearSheetTimerRef.current = setTimeout(() => {
       setDisplayedFolder(null);
-    }, FOLDER_MOTION_MS);
+      mobileTransitionLockedRef.current = false;
+    }, folderMotionDuration);
   };
 
   const handleFolderPress = (pressedFolder: FolderId) => {
@@ -312,21 +318,30 @@ export function PortfolioFolderIndex() {
       return;
     }
 
+    if (mobileTransitionLockedRef.current) {
+      return;
+    }
+
     const nextFolder = getFolderAfterPress(activeFolder, pressedFolder);
     if (!nextFolder) {
+      mobileTransitionLockedRef.current = true;
       closeFolders();
       return;
     }
 
     if (activeFolder && activeFolder !== nextFolder) {
+      mobileTransitionLockedRef.current = true;
       if (clearSheetTimerRef.current) {
         clearTimeout(clearSheetTimerRef.current);
       }
       setActiveFolder(null);
       setAnimateSheet(false);
+      const folderMotionDuration = getFolderMotionDuration(
+        usesMobileFolderLayout(),
+      );
       switchFolderTimerRef.current = setTimeout(() => {
         activateFolder(nextFolder);
-      }, FOLDER_MOTION_MS);
+      }, folderMotionDuration);
       return;
     }
 
@@ -358,7 +373,7 @@ export function PortfolioFolderIndex() {
   const activeFolderIndex = activeFolder
     ? folders.findIndex((folder) => folder.id === activeFolder)
     : -1;
-  const folderSheetClassName = `folder-sheet${
+  const mobileFolderSheetClassName = `folder-sheet${
     displayedFolder ? ` folder-sheet-${displayedFolder}` : ""
   }${activeFolder ? " folder-sheet-open" : ""}${
     animateSheet ? " folder-sheet-animate" : ""
@@ -422,17 +437,32 @@ export function PortfolioFolderIndex() {
 
       <div
         ref={sheetRef}
-        key={displayedFolder ?? "closed"}
-        className={`${folderSheetClassName} desktop-folder-sheet`}
+        className="desktop-folder-sheets"
         aria-live="polite"
         onMouseLeave={handleFolderSystemLeave}
       >
-        {displayedFolder ? sheetByFolder[displayedFolder] : null}
+        {folders.map((folder, index) => {
+          const isOpen = isFolderExtended(index, activeFolderIndex);
+          const isCurrent = activeFolder === folder.id;
+
+          return (
+            <div
+              className={`folder-sheet folder-sheet-${folder.id} desktop-folder-sheet${
+                isOpen ? " folder-sheet-open" : ""
+              }${isCurrent ? " folder-sheet-current" : ""}`}
+              aria-hidden={!isOpen}
+              key={folder.id}
+            >
+              {sheetByFolder[folder.id]}
+            </div>
+          );
+        })}
       </div>
 
       <div
-        className={`${folderSheetClassName} mobile-folder-sheet`}
+        className={`${mobileFolderSheetClassName} mobile-folder-sheet`}
         aria-live="polite"
+        aria-hidden={!activeFolder}
       >
         {displayedFolder ? sheetByFolder[displayedFolder] : null}
       </div>

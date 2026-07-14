@@ -2,16 +2,21 @@ import { describe, expect, it } from "vitest";
 
 import {
   FOLDER_MOTION_MS,
+  MOBILE_FOLDER_MOTION_MS,
   getClosedFolderState,
   getFolderAfterPress,
+  getFolderMotionDuration,
   getFolderTransition,
   isFolderExtended,
   shouldCloseFolderSystem,
 } from "./folder-state";
 
 describe("folder motion timing", () => {
-  it("coordinates React state with the CSS transition duration", () => {
+  it("keeps desktop timing while using a tighter mobile duration", () => {
     expect(FOLDER_MOTION_MS).toBe(773);
+    expect(MOBILE_FOLDER_MOTION_MS).toBe(620);
+    expect(getFolderMotionDuration(false)).toBe(773);
+    expect(getFolderMotionDuration(true)).toBe(620);
   });
 });
 
