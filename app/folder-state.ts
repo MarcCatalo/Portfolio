@@ -4,7 +4,7 @@ export type FolderTransition = {
 };
 
 export const FOLDER_MOTION_MS = 773;
-export const MOBILE_FOLDER_MOTION_MS = 620;
+export const MOBILE_FOLDER_MOTION_MS = 440;
 
 export function getFolderMotionDuration(isMobile: boolean): number {
   return isMobile ? MOBILE_FOLDER_MOTION_MS : FOLDER_MOTION_MS;

@@ -385,7 +385,6 @@ export function PortfolioFolderIndex() {
       <div className="editorial-meta">
         <span>MJC / PORTFOLIO</span>
         <span>{profile.role}</span>
-        <span>{profile.location} / 2026</span>
       </div>
 
       <section className="editorial-hero" aria-label="Portfolio introduction">
@@ -509,7 +508,7 @@ export function PortfolioFolderIndex() {
       </nav>
 
       <div className="editorial-hint">
-        Hover a folder to open / move across to switch
+        Hover over a folder to open/ move across to switch
       </div>
     </main>
   );

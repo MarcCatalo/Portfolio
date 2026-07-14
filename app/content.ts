@@ -14,7 +14,7 @@ import {
 
 export const profile = {
   name: "Marc Joshua Catalo",
-  role: "Backend Developer",
+  role: "Mobile and Web Application Developer",
   headline:
     "I build backend systems, admin tools, and mobile app features for startup and enterprise products.",
   location: "Philippines",
@@ -29,8 +29,7 @@ export const navItems = ["Work", "Projects", "Skills", "Contact"];
 
 export const stats = [
   { value: "2024", label: "BSIT graduate" },
-  { value: "4", label: "product domains" },
-  { value: "2024-2026", label: "AHG Lab" },
+  { value: "4", label: "Projects handled" },
 ];
 
 export const work = [

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Marc Joshua Catalo | Backend Developer",
+  title: "Marc Joshua Catalo | Mobile and Web Application Developer",
   description:
     "Editorial portfolio for Marc Joshua Catalo, a backend developer building systems across healthcare, agriculture, fitness, and job platform products.",
 };

@@ -2,44 +2,39 @@ import { readFileSync } from "node:fs";
 
 import { describe, expect, it } from "vitest";
 
-describe("mobile genie folders", () => {
+describe("mobile rising folder sheets", () => {
   const css = readFileSync(new URL("./globals.css", import.meta.url), "utf8");
   const source = readFileSync(
     new URL("./PortfolioFolderIndex.tsx", import.meta.url),
     "utf8",
   );
 
-  it("keeps the folder rail fixed while the complete paper fans upward", () => {
+  it("keeps the folder rail fixed while the paper rises upward", () => {
     expect(css).toContain("--mobile-folder-seam-overlap: 2px;");
-    expect(css).toContain("--mobile-genie-closed:");
-    expect(css).toContain("--mobile-genie-open:");
-    expect(css).toContain("clip-path: var(--mobile-genie-closed);");
-    expect(css).toContain("clip-path: var(--mobile-genie-open);");
-    expect(css).toContain("transform-origin: 50% 100%;");
+    expect(css).toContain("transform: translate3d(0, 28px, 0);");
+    expect(css).toContain("will-change: opacity, transform;");
     expect(css).toContain(".folder-slot-extended {\n    transform: none;");
   });
 
-  it("warps the complete sheet through staged opening and closing contours", () => {
-    expect(css).toContain("@keyframes mobile-genie-sheet-open");
-    expect(css).toContain("@keyframes mobile-genie-sheet-close");
-    expect(css).toContain("animation: mobile-genie-sheet-open");
-    expect(css).toContain("animation: mobile-genie-sheet-close");
-    expect(css).toContain("36% {");
-    expect(css).toContain("82% {");
-    expect(css).toContain("42% 38%,");
-    expect(css).toContain("scaleX(0.18) scaleY(0.04)");
+  it("uses a simple rise instead of the genie distortion", () => {
+    expect(css).toContain("@keyframes mobile-sheet-rise-open");
+    expect(css).toContain("@keyframes mobile-sheet-rise-close");
+    expect(css).toContain("animation: mobile-sheet-rise-open");
+    expect(css).toContain("animation: mobile-sheet-rise-close");
+    expect(css).not.toContain("animation: mobile-genie-sheet-open");
+    expect(css).not.toContain("animation: mobile-genie-sheet-close");
   });
 
   it("uses one responsive duration for the mobile paper and state lock", () => {
-    expect(css).toContain("--motion-mobile-folder: 620ms;");
+    expect(css).toContain("--motion-mobile-folder: 440ms;");
     expect(css).toContain(
-      "--motion-mobile-ease: cubic-bezier(0.2, 0.72, 0.2, 1);",
+      "--motion-mobile-ease: cubic-bezier(0.22, 1, 0.36, 1);",
     );
     expect(css).toContain(
-      "animation: mobile-genie-sheet-open var(--motion-mobile-folder)",
+      "animation: mobile-sheet-rise-open var(--motion-mobile-folder)",
     );
     expect(css).toContain(
-      "animation: mobile-genie-sheet-close var(--motion-mobile-folder)",
+      "animation: mobile-sheet-rise-close var(--motion-mobile-folder)",
     );
     expect(source).toMatch(
       /getFolderMotionDuration\(\s*usesMobileFolderLayout\(\),?\s*\)/,

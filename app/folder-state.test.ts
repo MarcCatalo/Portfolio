@@ -14,9 +14,9 @@ import {
 describe("folder motion timing", () => {
   it("keeps desktop timing while using a tighter mobile duration", () => {
     expect(FOLDER_MOTION_MS).toBe(773);
-    expect(MOBILE_FOLDER_MOTION_MS).toBe(620);
+    expect(MOBILE_FOLDER_MOTION_MS).toBe(440);
     expect(getFolderMotionDuration(false)).toBe(773);
-    expect(getFolderMotionDuration(true)).toBe(620);
+    expect(getFolderMotionDuration(true)).toBe(440);
   });
 });
 

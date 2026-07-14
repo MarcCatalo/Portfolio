@@ -100,17 +100,13 @@ a:focus-visible {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(12px, 1.7vw, 26px);
   font-family: "IBM Plex Mono", monospace;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.45;
   text-transform: uppercase;
 }
 
 .editorial-meta span:nth-child(2) {
   text-align: center;
-}
-
-.editorial-meta span:last-child {
-  text-align: right;
 }
 
 .editorial-hero {
@@ -241,7 +237,7 @@ a:focus-visible {
   left: var(--page-gutter);
   z-index: 3;
   display: grid;
-  grid-template-columns: repeat(3, minmax(112px, 180px));
+  grid-template-columns: repeat(2, minmax(112px, 180px));
   padding-left: var(--identity-offset);
   border-top: 1px solid var(--ink);
   font-family: "IBM Plex Mono", monospace;
@@ -249,7 +245,7 @@ a:focus-visible {
 
 .hero-footnote span {
   padding: 12px 12px 0 0;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.5;
 }
 
@@ -814,12 +810,15 @@ a:focus-visible {
 
 .editorial-hint {
   position: absolute;
-  right: calc(var(--folder-rail) + 28px);
+  right: auto;
   bottom: 20px;
+  left: 50%;
   z-index: 8;
   font-family: "IBM Plex Mono", monospace;
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
 
 @keyframes cursor-blink {
@@ -913,14 +912,11 @@ a:focus-visible {
 
   .editorial-meta {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    font-size: 11px;
   }
 
   .editorial-meta span:nth-child(2) {
     display: none;
-  }
-
-  .editorial-meta span:last-child {
-    text-align: right;
   }
 
   .editorial-hero {
@@ -1125,7 +1121,7 @@ a:focus-visible {
   }
 
   .hero-footnote span {
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .folder-rail {
@@ -1219,18 +1215,14 @@ a:focus-visible {
   }
 
   .editorial-meta {
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(170px, 1.7fr) minmax(0, 1fr);
     gap: 10px;
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .editorial-meta span:nth-child(2) {
     display: block;
     text-align: center;
-  }
-
-  .editorial-meta span:last-child {
-    text-align: right;
   }
 
   .editorial-hero {
@@ -1259,9 +1251,12 @@ a:focus-visible {
   .hero-footnote {
     position: absolute;
     right: var(--mobile-gutter);
-    bottom: 18px;
+    bottom: calc(
+      var(--mobile-folder-bottom) + var(--mobile-stack-height) + 2px
+    );
     left: var(--mobile-gutter);
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
     margin: 0;
     padding-left: 0;
   }
@@ -1501,7 +1496,7 @@ a:focus-visible {
 
   .editorial-meta {
     gap: 7px;
-    font-size: 7px;
+    font-size: 9px;
   }
 
   .editorial-hero {
@@ -1526,7 +1521,7 @@ a:focus-visible {
   }
 
   .hero-footnote span {
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .folder-slot,
@@ -1600,211 +1595,56 @@ a:focus-visible {
   }
 }
 
-@keyframes mobile-genie-sheet-open {
-  0% {
+@keyframes mobile-sheet-rise-open {
+  from {
     opacity: 0;
     visibility: visible;
-    clip-path: var(--mobile-genie-closed);
-    transform: translate3d(0, 36px, 0) scaleX(0.18) scaleY(0.04);
+    transform: translate3d(0, 28px, 0);
   }
-
-  16% {
-    opacity: 0.72;
-    clip-path: polygon(
-      42% 38%,
-      58% 38%,
-      64% 48%,
-      69% 61%,
-      68% 76%,
-      62% 92%,
-      58% 100%,
-      42% 100%,
-      38% 92%,
-      32% 76%,
-      31% 61%,
-      36% 48%
-    );
-    transform: translate3d(0, 25px, 0) scaleX(0.34) scaleY(0.3);
-  }
-
-  36% {
-    opacity: 1;
-    clip-path: polygon(
-      24% 38%,
-      76% 38%,
-      84% 43%,
-      89% 54%,
-      87% 68%,
-      75% 85%,
-      62% 100%,
-      38% 100%,
-      25% 85%,
-      13% 68%,
-      11% 54%,
-      16% 43%
-    );
-    transform: translate3d(0, 14px, 0) scaleX(0.62) scaleY(0.64);
-  }
-
-  58% {
-    clip-path: polygon(
-      8% 12%,
-      92% 12%,
-      97% 20%,
-      99% 36%,
-      95% 56%,
-      80% 79%,
-      68% 100%,
-      32% 100%,
-      20% 79%,
-      5% 56%,
-      1% 36%,
-      3% 20%
-    );
-    transform: translate3d(0, 5px, 0) scaleX(0.88) scaleY(0.87);
-  }
-
-  82% {
-    clip-path: polygon(
-      0% 0%,
-      100% 0%,
-      100% 18%,
-      98% 38%,
-      94% 60%,
-      88% 82%,
-      82% 100%,
-      18% 100%,
-      12% 82%,
-      6% 60%,
-      2% 38%,
-      0% 18%
-    );
-    transform: translate3d(0, -1px, 0) scaleX(0.985) scaleY(1.01);
-  }
-
-  92% {
-    clip-path: polygon(
-      0% 0%,
-      100% 0%,
-      100% 18%,
-      100% 38%,
-      99% 60%,
-      97% 82%,
-      96% 100%,
-      4% 100%,
-      3% 82%,
-      1% 60%,
-      0% 38%,
-      0% 18%
-    );
-    transform: translate3d(0, 0, 0) scaleX(1.01) scaleY(1.005);
-  }
-
-  100% {
+  to {
     opacity: 1;
     visibility: visible;
-    clip-path: var(--mobile-genie-open);
-    transform: translate3d(0, 0, 0) scaleX(1) scaleY(1);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-@keyframes mobile-genie-sheet-close {
-  0% {
+@keyframes mobile-sheet-rise-close {
+  from {
     opacity: 1;
     visibility: visible;
-    clip-path: var(--mobile-genie-open);
-    transform: translate3d(0, 0, 0) scaleX(1) scaleY(1);
+    transform: translate3d(0, 0, 0);
   }
-
-  18% {
-    clip-path: polygon(
-      0% 0%,
-      100% 0%,
-      100% 18%,
-      98% 38%,
-      94% 60%,
-      88% 82%,
-      82% 100%,
-      18% 100%,
-      12% 82%,
-      6% 60%,
-      2% 38%,
-      0% 18%
-    );
-    transform: translate3d(0, -1px, 0) scaleX(0.985) scaleY(1.01);
-  }
-
-  42% {
-    opacity: 1;
-    clip-path: polygon(
-      8% 12%,
-      92% 12%,
-      97% 20%,
-      99% 36%,
-      95% 56%,
-      80% 79%,
-      68% 100%,
-      32% 100%,
-      20% 79%,
-      5% 56%,
-      1% 36%,
-      3% 20%
-    );
-    transform: translate3d(0, 5px, 0) scaleX(0.88) scaleY(0.87);
-  }
-
-  64% {
-    opacity: 0.88;
-    clip-path: polygon(
-      24% 38%,
-      76% 38%,
-      84% 43%,
-      89% 54%,
-      87% 68%,
-      75% 85%,
-      62% 100%,
-      38% 100%,
-      25% 85%,
-      13% 68%,
-      11% 54%,
-      16% 43%
-    );
-    transform: translate3d(0, 14px, 0) scaleX(0.62) scaleY(0.64);
-  }
-
-  84% {
-    opacity: 0.46;
-    clip-path: polygon(
-      42% 38%,
-      58% 38%,
-      64% 48%,
-      69% 61%,
-      68% 76%,
-      62% 92%,
-      58% 100%,
-      42% 100%,
-      38% 92%,
-      32% 76%,
-      31% 61%,
-      36% 48%
-    );
-    transform: translate3d(0, 25px, 0) scaleX(0.34) scaleY(0.3);
-  }
-
-  100% {
+  to {
     opacity: 0;
     visibility: hidden;
-    clip-path: var(--mobile-genie-closed);
-    transform: translate3d(0, 36px, 0) scaleX(0.18) scaleY(0.04);
+    transform: translate3d(0, 28px, 0);
   }
 }
 
 @media (max-width: 900px) {
+  html,
+  body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
   .portfolio-editorial {
-    --motion-mobile-folder: 620ms;
-    --motion-mobile-ease: cubic-bezier(0.2, 0.72, 0.2, 1);
+    --motion-mobile-folder: 440ms;
+    --motion-mobile-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --mobile-page-min-height: 900px;
     --mobile-stack-gutter: 8px;
-    --mobile-folder-bottom: clamp(48px, 5.7svh, 58px);
+    --mobile-footer-bottom: 18px;
+    --mobile-footer-height: 72px;
+    --mobile-folder-gap: 18px;
+    --mobile-folder-bottom: calc(
+      var(--mobile-footer-bottom) + var(--mobile-footer-height) +
+        var(--mobile-folder-gap)
+    );
     --mobile-stack-step: clamp(48px, 5.9svh, 54px);
     --mobile-tab-height: 36px;
     --mobile-folder-depth: 84px;
@@ -1813,34 +1653,17 @@ a:focus-visible {
       (var(--mobile-stack-step) * 3) + var(--mobile-folder-depth)
     );
     --mobile-sheet-top: max(70px, calc(env(safe-area-inset-top) + 54px));
-    --mobile-genie-closed: polygon(
-      48% 100%,
-      52% 100%,
-      54% 100%,
-      57% 100%,
-      60% 100%,
-      64% 100%,
-      36% 100%,
-      40% 100%,
-      43% 100%,
-      46% 100%,
-      47% 100%,
-      48% 100%
-    );
-    --mobile-genie-open: polygon(
-      0% 0%,
-      100% 0%,
-      100% 18%,
-      100% 38%,
-      100% 60%,
-      100% 82%,
-      100% 100%,
-      0% 100%,
-      0% 82%,
-      0% 60%,
-      0% 38%,
-      0% 18%
-    );
+    min-height: max(100svh, var(--mobile-page-min-height));
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .editorial-hero {
+    min-height: max(100svh, var(--mobile-page-min-height));
+  }
+
+  .hero-footnote {
+    bottom: var(--mobile-footer-bottom);
   }
 
   .folder-rail {
@@ -2013,14 +1836,12 @@ a:focus-visible {
     background: rgba(255, 255, 255, 0.995);
     opacity: 0;
     visibility: hidden;
-    clip-path: var(--mobile-genie-closed);
     pointer-events: none;
-    transform: translate3d(0, 36px, 0) scaleX(0.18) scaleY(0.04);
-    transform-origin: 50% 100%;
+    transform: translate3d(0, 28px, 0);
     backface-visibility: hidden;
     contain: layout paint;
     transition: none;
-    will-change: clip-path, opacity, transform;
+    will-change: opacity, transform;
   }
 
   .folder-sheet-work {
@@ -2057,13 +1878,12 @@ a:focus-visible {
   .folder-sheet-open {
     opacity: 1;
     visibility: visible;
-    clip-path: var(--mobile-genie-open);
     pointer-events: auto;
-    transform: translate3d(0, 0, 0) scaleX(1) scaleY(1);
+    transform: translate3d(0, 0, 0);
   }
 
   .mobile-folder-sheet.folder-sheet-open {
-    animation: mobile-genie-sheet-open var(--motion-mobile-folder)
+    animation: mobile-sheet-rise-open var(--motion-mobile-folder)
       var(--motion-mobile-ease) both;
   }
 
@@ -2074,7 +1894,7 @@ a:focus-visible {
       .folder-sheet-contact
     ):not(.folder-sheet-open) {
     visibility: visible;
-    animation: mobile-genie-sheet-close var(--motion-mobile-folder)
+    animation: mobile-sheet-rise-close var(--motion-mobile-folder)
       var(--motion-mobile-ease) both;
   }
 
@@ -2089,7 +1909,6 @@ a:focus-visible {
 @media (max-width: 520px) {
   .portfolio-editorial {
     --mobile-stack-gutter: 8px;
-    --mobile-folder-bottom: clamp(44px, 5.4svh, 50px);
     --mobile-stack-step: clamp(46px, 5.8svh, 51px);
     --mobile-tab-height: 34px;
     --mobile-folder-depth: 80px;
