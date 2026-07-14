@@ -3,6 +3,8 @@ export type FolderTransition = {
   animateSheet: boolean;
 };
 
+export const FOLDER_MOTION_MS = 773;
+
 export function getFolderAfterPress<T extends string>(
   activeFolder: T | null,
   pressedFolder: T,

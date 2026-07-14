@@ -27,6 +27,7 @@ import {
   work,
 } from "./content";
 import {
+  FOLDER_MOTION_MS,
   getClosedFolderState,
   getFolderAfterPress,
   getFolderTransition,
@@ -302,7 +303,7 @@ export function PortfolioFolderIndex() {
     setAnimateSheet(closedState.animateSheet);
     clearSheetTimerRef.current = setTimeout(() => {
       setDisplayedFolder(null);
-    }, 700);
+    }, FOLDER_MOTION_MS);
   };
 
   const handleFolderPress = (pressedFolder: FolderId) => {
@@ -325,7 +326,7 @@ export function PortfolioFolderIndex() {
       setAnimateSheet(false);
       switchFolderTimerRef.current = setTimeout(() => {
         activateFolder(nextFolder);
-      }, 240);
+      }, FOLDER_MOTION_MS);
       return;
     }
 

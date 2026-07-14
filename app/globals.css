@@ -7,7 +7,7 @@
   --line: #c9c9c4;
   --page-edge: #d9d9d6;
   --motion-fast: 150ms;
-  --motion-folder: 644ms;
+  --motion-folder: 773ms;
   --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -271,8 +271,8 @@ a:focus-visible {
   transform: translate3d(18px, 0, 0);
   transition:
     opacity var(--motion-fast) ease,
-    transform 260ms var(--motion-ease),
-    visibility 0s linear 260ms;
+    transform var(--motion-folder) var(--motion-ease),
+    visibility 0s linear var(--motion-folder);
 }
 
 .mobile-folder-sheet {
@@ -311,7 +311,7 @@ a:focus-visible {
 }
 
 .folder-sheet-animate {
-  animation: sheet-enter 260ms var(--motion-ease) both;
+  animation: sheet-enter var(--motion-folder) var(--motion-ease) both;
 }
 
 .sheet-content {
@@ -1316,7 +1316,7 @@ a:focus-visible {
     cursor: pointer;
     contain: none;
     will-change: transform;
-    transition: transform 700ms var(--motion-ease);
+    transition: transform var(--motion-folder) var(--motion-ease);
   }
 
   .folder-spine::before,
@@ -1407,8 +1407,8 @@ a:focus-visible {
     transform: translate3d(0, calc(100% + 24px), 0);
     transition:
       opacity 220ms ease,
-      transform 700ms var(--motion-ease),
-      visibility 0s linear 700ms;
+      transform var(--motion-folder) var(--motion-ease),
+      visibility 0s linear var(--motion-folder);
     will-change: transform;
   }
 

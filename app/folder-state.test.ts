@@ -1,12 +1,19 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  FOLDER_MOTION_MS,
   getClosedFolderState,
   getFolderAfterPress,
   getFolderTransition,
   isFolderExtended,
   shouldCloseFolderSystem,
 } from "./folder-state";
+
+describe("folder motion timing", () => {
+  it("coordinates React state with the CSS transition duration", () => {
+    expect(FOLDER_MOTION_MS).toBe(773);
+  });
+});
 
 describe("getFolderAfterPress", () => {
   it("opens a folder when the stack is closed", () => {
