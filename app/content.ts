@@ -27,11 +27,6 @@ export const profile = {
 
 export const navItems = ["Work", "Projects", "Skills", "Contact"];
 
-export const stats = [
-  { value: "2024", label: "BSIT graduate" },
-  { value: "4", label: "Projects handled" },
-];
-
 export const work = [
   {
     company: "AHG Lab / Sandlot Technology Ventures Inc.",
@@ -120,6 +115,11 @@ export const projects = [
       "Implemented revisions and resolved reported issues across user-facing and admin-facing features.",
     ],
   },
+];
+
+export const stats = [
+  { value: "2024", label: "BSIT graduate" },
+  { value: String(projects.length), label: "Projects handled" },
 ];
 
 export const skillGroups = [
