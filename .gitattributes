@@ -1,0 +1,10 @@
+# Normalise line endings so the repository is identical on Windows and Linux.
+# The CSS tests compare multi-line strings and fail on CRLF checkouts.
+* text=auto eol=lf
+
+# Binaries must never be line-ending converted.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+*.docx binary
