@@ -786,6 +786,20 @@ a:focus-visible {
   animation-delay: 890ms;
 }
 
+/* The spine slides away when its folder opens, and the sheet is revealed from
+   the right, so the strip the spine vacates belongs to neither for a moment.
+   Keep the resting footprint hoverable so the pointer never "leaves" mid-open. */
+@media (min-width: 901px) {
+  .folder-slot::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: var(--folder-spine);
+    content: "";
+  }
+}
+
 .folder-number {
   position: absolute;
   top: 22px;
