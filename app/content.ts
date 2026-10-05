@@ -54,7 +54,7 @@ export const work = [
 
 export const projects = [
   {
-    title: "SLMC Ehub",
+    title: "St. Luke's Medical Center Ehub",
     period: "2025 - 2026",
     type: "Enterprise healthcare platform",
     stack: ["GCP", "Firebase Firestore", "JavaScript", "Docker"],
@@ -63,10 +63,10 @@ export const projects = [
     description:
       "Backend development for patient-facing and administrative workflows at St. Luke's Medical Center.",
     highlights: [
-      "Developed patient enrollment, information management, payment, and dashboard features.",
-      "Built and maintained endpoint integrations for patient-facing and admin-facing applications.",
-      "Resolved production issues involving patient records, services, post-operation details, and payment statuses.",
-      "Improved reliability through issue tracing, data validation, debugging, and workflow updates.",
+      "Developed backend features for patient enrollment, patient information management, payment-related workflows, and administrative dashboard operations.",
+      "Built and maintained endpoint integrations supporting patient-facing and admin-facing application features.",
+      "Investigated and resolved production issues involving patient records, post-operation details, service workflows, and payment status handling.",
+      "Supported backend reliability through debugging, issue tracing, data validation, and workflow updates.",
     ],
   },
   {
@@ -79,10 +79,25 @@ export const projects = [
     description:
       "Hydroponics management platform for tracking farms, greenhouses, crops, resources, crop programs, and daily activities.",
     highlights: [
-      "Developed farm, greenhouse, crop, resource, crop program, and activity management features.",
-      "Updated database tables for crop lifecycles, greenhouse assignments, resources, and user tasks.",
-      "Implemented crop program generation and scheduling using templates, rules, dates, and admin configuration.",
-      "Built endpoints for farm operations, crop planning, and task management.",
+      "Developed backend features for managing farms, greenhouses, crops, resources, crop programs, and farm activities.",
+      "Designed and updated database tables to support crop lifecycle tracking, greenhouse assignments, resource management, and user-specific task assignments.",
+      "Implemented crop program generation and activity scheduling using a mix of fixed templates, custom rules, date-based logic, and admin-configured programs.",
+      "Built REST APIs and backend workflows to support farm operations, crop planning, and task management.",
+    ],
+  },
+  {
+    title: "FastR App",
+    period: "2024",
+    type: "Job board web app",
+    stack: ["Supabase", "Python"],
+    logo: "/project-logos/fastr.jpeg",
+    accent: "violet",
+    description:
+      "Backend development and production support for a job board web application.",
+    highlights: [
+      "Debugged and enhanced backend features across job posting, search/filtering, applications, user accounts, and admin workflows.",
+      "Created and updated REST APIs, database tables, and backend logic for a job board web application.",
+      "Resolved reported issues and implemented revisions to improve stability across user-facing and admin-facing features.",
     ],
   },
   {
@@ -95,24 +110,9 @@ export const projects = [
     description:
       "Backend systems for authentication, gym access, memberships, coach sessions, workout progress, and administration.",
     highlights: [
-      "Built endpoints and database structures for mobile and administration workflows.",
-      "Enhanced subscription, booking, user activity, and coach session business logic.",
-      "Supported active membership tracking and sales-related reporting.",
-    ],
-  },
-  {
-    title: "Fastr App",
-    period: "2024",
-    type: "Job board web app",
-    stack: ["Supabase", "Python"],
-    logo: "/project-logos/fastr.jpeg",
-    accent: "violet",
-    description:
-      "Backend development and production support for a job board web application.",
-    highlights: [
-      "Debugged job posting, search and filtering, applications, user accounts, and admin workflows.",
-      "Created and updated endpoints and database schemas.",
-      "Implemented revisions and resolved reported issues across user-facing and admin-facing features.",
+      "Developed backend features for authentication, gym access, membership booking, active membership tracking, coach sessions, and workout progress tracking.",
+      "Built REST APIs and database structures supporting mobile app workflows and admin dashboard functionality.",
+      "Implemented backend logic for subscriptions, booking rules, user activity tracking, coach session management, and sales-related reporting.",
     ],
   },
 ];
@@ -129,12 +129,12 @@ export const skillGroups = [
     skills: ["Python", "JavaScript", "TypeScript", "C++"],
   },
   {
-    title: "Frameworks",
+    title: "Frameworks & Libraries",
     icon: Activity,
-    skills: ["React", "Django", "jQuery", "Next.js"],
+    skills: ["React", "Next.js", "Django", "jQuery"],
   },
   {
-    title: "Platforms & Data",
+    title: "Platforms & Databases",
     icon: Database,
     skills: ["Xano", "Supabase", "Firebase", "Firestore", "GCP"],
   },
@@ -142,6 +142,7 @@ export const skillGroups = [
     title: "Developer Tools",
     icon: BadgeCheck,
     skills: [
+      "GCP",
       "Docker",
       "Postman",
       "GitHub",
